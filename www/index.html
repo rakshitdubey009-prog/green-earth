@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#0B7A4B"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="/icons/icon-192.png"><link rel="apple-touch-icon" href="/icons/icon-192.png"><title>Green Earth</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap">
+<script src="/chart.umd.js"></script>
+<style>
+:root{--bg:#f2f7f4;--card:#fff;--ink:#0f2418;--mute:#5d7366;--g:#15803d;--g2:#dcfce7;--bad:#dc2626;--line:#dbe8df;--sh:0 4px 18px rgba(21,128,61,.09);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1710;--card:#13241a;--ink:#e8f3ec;--mute:#92ab9b;--g:#4ade80;--g2:#1a3a27;--bad:#f87171;--line:#244032;--sh:0 4px 18px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#0b1710;--card:#13241a;--ink:#e8f3ec;--mute:#92ab9b;--g:#4ade80;--g2:#1a3a27;--bad:#f87171;--line:#244032;--sh:0 4px 18px rgba(0,0,0,.4)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Plus Jakarta Sans",system-ui,sans-serif}
+.shell{display:flex;min-height:100vh}
+aside{width:232px;background:linear-gradient(170deg,#0b3d24,#14532d 60%,#166534);color:#e8fbee;padding:18px 12px;position:sticky;top:0;height:100vh;display:none;flex-direction:column;gap:2px}
+aside .br{display:flex;gap:10px;align-items:center;font-weight:800;font-size:19px;padding:4px 8px 4px}
+aside small{display:block;font-weight:400;font-size:11px;opacity:.75;padding:0 8px 16px 62px;margin-top:-6px}
+aside button{all:unset;cursor:pointer;padding:10px 12px;border-radius:10px;font-weight:600;color:#c9f0d6;transition:.2s}
+aside button:hover{background:rgba(255,255,255,.1)}aside button.on{background:#fff;color:#14532d}
+.main{flex:1;min-width:0;padding:14px 14px 90px}
+.top{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;margin-bottom:10px}
+.page{max-width:1100px;margin:0 auto;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#bn{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;overflow-x:auto;padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
+#bn button{all:unset;flex:none;min-width:68px;text-align:center;padding:8px 6px;font-size:11px;font-weight:600;color:var(--mute);cursor:pointer}
+#bn button span{display:block;font-size:20px}#bn button.on{color:var(--g)}
+@media(min-width:900px){aside{display:flex}#bn{display:none}.main{padding:22px 28px}.top{display:none}}
+h1{font-size:26px;margin:4px 0 4px;letter-spacing:-.5px}h2{margin:18px 0 10px;font-size:18px}h3{margin:0 0 8px;font-size:14px;color:var(--mute);font-weight:600}
+.hero{background:linear-gradient(120deg,#14532d,#16a34a 70%,#65a30d);color:#fff;border-radius:20px;padding:20px;display:flex;gap:16px;align-items:center;margin-bottom:14px;box-shadow:var(--sh)}
+.hero h1{margin:0}.hero p{margin:2px 0 0;opacity:.9}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-bottom:14px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px;margin-bottom:14px}
+.kp,.cc,.c{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--sh);transition:transform .2s}
+.kp:hover,.cc:hover,.co:hover{transform:translateY(-2px)}
+.kp .ic{font-size:20px;width:36px;height:36px;display:grid;place-items:center;background:var(--g2);border-radius:10px}
+.kl{font-size:12px;color:var(--mute);margin-top:8px}.kv{font-size:26px;font-weight:800;color:var(--g);line-height:1.2}.ks{font-size:11px;color:var(--mute)}
+.up{color:var(--g);font-weight:700}.dn{color:var(--bad);font-weight:700}
+.ch{height:230px;position:relative}
+.ins{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.ins span{background:var(--g2);color:var(--g);padding:8px 12px;border-radius:12px;font-weight:600;font-size:13px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--mute);font-size:12px}
+.bar2{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px;align-items:center}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+.bar2 input,.bar2 select{width:auto;flex:1;min-width:120px}
+label{display:block;font-size:12px;color:var(--mute);margin:8px 0 3px;font-weight:600}
+.p,.s{border:0;border-radius:10px;padding:10px 16px;font:inherit;font-weight:700;cursor:pointer;transition:.2s}
+.p{background:var(--g);color:#fff}:root[data-theme="dark"] .p,:root:not([data-theme="light"]) .p{color:#06210f}
+.s{background:var(--g2);color:var(--g)}.x{color:var(--bad)}.p:hover,.s:hover{filter:brightness(.95);transform:translateY(-1px)}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0 12px}
+dialog{border:0;border-radius:18px;max-width:600px;width:94%;background:var(--card);color:var(--ink);padding:18px}dialog::backdrop{background:rgba(0,0,0,.5)}
+.tag{font-size:11px;padding:2px 8px;border-radius:9px;background:var(--g2);color:var(--g);font-weight:700}
+.co{cursor:pointer}.co b{font-size:16px}.note{font-size:12px;color:var(--mute)}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;margin-top:8px;font-size:13px}
+.mini div b{display:block;color:var(--g)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0;font-weight:700}
+.flow span{background:var(--g2);color:var(--g);padding:6px 12px;border-radius:20px}
+.quote{text-align:center;font-size:20px;font-weight:800;padding:20px;background:linear-gradient(120deg,var(--g2),var(--card));border-radius:16px;margin:12px 0}
+@keyframes sp{to{transform:rotate(360deg)}}.spin{transform-origin:50% 50%;animation:sp 40s linear infinite}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{aside,#bn,.top,.bar2,.noprint{display:none!important}.main{padding:0}}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--g);outline-offset:1px}
+</style></head><body><div id="lg" style="position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;padding:20px;overflow:auto"></div>
+<div class="shell"><aside id="sb"></aside><div class="main"><div class="top" id="top"></div><div id="m" class="page"></div></div></div>
+<nav id="bn"></nav><dialog id="dlg"></dialog>
+<script>
+var K="greenearth_v1",G="#16a34a",BL="#0ea5e9",AM="#f59e0b",RD="#ef4444",PU="#8b5cf6";
+var PG=[["dash","Dashboard","📊"],["cos","Companies","🏢"],["rec","Cartons","📦"],["reuse","Reuse cycle","♻️"],["calc","Calculator","🧮"],["rev","Revenue","💰"],["rep","Reports","📈"],["exec","Summary","🌍"],["data","Backup","💾"]];
+var CS=["Delivered","With Customer","Recovered","Under Inspection","Reusable","Damaged","Reused"],CT=["Corrugated Box","Shoe Box","Courier Box","Appliance Box","Other"],CY=["Footwear","Electronics","E-commerce","Food","Other"];
+var $=function(i){return document.getElementById(i)},S,tab="dash",sel=null,q="",F={from:"",to:"",co:"",type:"",st:""},CH={};
+function logo(s){return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 64 64" aria-label="Green Earth"><defs><radialGradient id="og" cx="35%" cy="30%"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#0369a1"/></radialGradient></defs><circle cx="32" cy="32" r="20" fill="url(#og)"/><path d="M20 24c4-5 10-6 13-3 2 3-2 5-1 8s-6 4-8 8c-3-3-7-9-4-13z" fill="#4ade80"/><path d="M36 36c4-2 9-1 10 3-1 5-6 8-10 6-3-3-3-7 0-9z" fill="#22c55e"/><path d="M8 32A24 24 0 0 1 50.4 16.6" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/><path d="M56 32A24 24 0 0 1 13.6 47.4" fill="none" stroke="#a3e635" stroke-width="4" stroke-linecap="round"/><path d="M54.3 21.2L53.8 13.7L47 19.5z" fill="#22c55e"/><path d="M9.7 42.8L10.2 50.3L17 44.5z" fill="#a3e635"/></svg>'}
+function demo(){var cos=[
+{id:1,name:"Global Footwear",contact:"A. Sharma",phone:"9000000001",email:"demo1@example.com",loc:"Delhi",type:"Footwear",vol:2000,cost:5,notes:""},
+{id:2,name:"ABC Electronics",contact:"B. Verma",phone:"9000000002",email:"demo2@example.com",loc:"Noida",type:"Electronics",vol:1500,cost:8,notes:""},
+{id:3,name:"XYZ E-Commerce",contact:"C. Singh",phone:"9000000003",email:"demo3@example.com",loc:"Meerut",type:"E-commerce",vol:5000,cost:12,notes:""}],recs=[],bills=[],n=0,tp=["Shoe Box","Appliance Box","Courier Box"];
+cos.forEach(function(c,ci){for(var m=0;m<6;m++){var del=300+ci*150+m*60,rec=Math.round(del*(.52+m*.06+ci*.02)),ok=Math.round(rec*(.72+m*.03)),mm=("0"+(4+m)).slice(-2);n++;
+recs.push({id:"GE-"+("00"+n).slice(-3),co:c.id,ref:"ORD-"+(100+n),type:tp[ci],size:"14x10x8 in",ply:3,cost:c.cost,ddate:"2026-"+mm+"-05",rdate:"2026-"+mm+"-20",route:"Route "+(ci+1),del:del,rec:rec,ok:ok,dm:rec-ok,reused:Math.round(ok*(.35+m*.08)),cyc:1+((m+ci)%5),max:3+ci,inc:1.5,status:m<5?"Reused":"Reusable"});
+bills.push({id:"INV-"+n,co:c.id,date:"2026-"+mm+"-28",model:"Per reusable carton",amt:ok*1,paid:m<4})}});
+return{cos:cos,recs:recs,bills:bills}}
+
+function sv(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+function esc(s){var d=document.createElement("div");d.textContent=s==null?"":s;return d.innerHTML}
+function nf(n){return Math.round(n||0).toLocaleString("en-IN")}
+function inr(n){return "₹"+(Math.round((n||0)*100)/100).toLocaleString("en-IN")}
+function pc(a,b){return b?Math.round(a/b*1000)/10:0}
+function co(id){return S.cos.find(function(c){return c.id==id})||{name:"(deleted)",cost:0,loc:""}}
+function gross(r){return r.ok*r.cost*Math.max(r.max-1,0)}
+function nid(a){return a.reduce(function(m,x){return Math.max(m,parseInt(String(x.id).replace(/\D/g,""))||0)},0)+1}
+function T(rs){var t={del:0,rec:0,ok:0,dm:0,re:0,cyc:0,gross:0,cost:0,ach:0};rs.forEach(function(r){t.del+=r.del;t.rec+=r.rec;t.ok+=r.ok;t.dm+=r.dm;t.re+=r.reused;t.cyc+=r.reused*r.cyc;t.gross+=gross(r);t.cost+=r.rec*r.inc;t.ach+=r.reused*r.cyc*r.cost});t.net=t.gross-t.cost;return t}
+function mons(rs){var m={};rs.forEach(function(r){m[r.rdate.slice(0,7)]=1});return Object.keys(m).sort()}
+function by(rs,ms,f){return ms.map(function(m){return rs.filter(function(r){return r.rdate.slice(0,7)==m}).reduce(function(s,r){return s+f(r)},0)})}
+function ml(m){return new Date(m+"-01").toLocaleString("en",{month:"short",year:"2-digit"})}
+function cum(a){var s=0;return a.map(function(x){return s+=x})}
+function dist(rs){var d=[0,0,0,0,0];rs.forEach(function(r){if(r.cyc>=1)d[Math.min(r.cyc,5)-1]+=r.reused});return d}
+function cv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+/* chart helpers */
+function L(l,d,c){return{label:l,data:d,borderColor:c,backgroundColor:c+"33",fill:true,tension:.4,pointRadius:3}}
+function B(l,d,c){return{label:l,data:d,backgroundColor:c,borderRadius:6}}
+function mk(id,type,labels,ds){var el=$(id);if(!el||typeof Chart=="undefined")return;var dn=type=="doughnut";
+ var cfg={type:type,data:{labels:labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,animation:{duration:700},cutout:dn?"68%":undefined,plugins:{legend:{display:ds.length>1||dn,position:"bottom",labels:{boxWidth:10,color:cv("--mute")}}},scales:dn?{}:{x:{grid:{display:false},ticks:{color:cv("--mute")}},y:{beginAtZero:true,grid:{color:cv("--line")},ticks:{color:cv("--mute")}}}}};
+ if(CH[id]&&CH[id].canvas===el){CH[id].data=cfg.data;CH[id].update()}else CH[id]=new Chart(el,cfg)}
+function dn(id,labels,vals,cols){mk(id,"doughnut",labels,[{data:vals,backgroundColor:cols,borderWidth:0}])}
+function cc(id,t){return '<div class="cc"><h3>'+t+'</h3><div class="ch"><canvas id="'+id+'" role="img" aria-label="'+t+'"></canvas></div></div>'}
+function kp(ic,l,v,f,s){return '<div class="kp"><div class="ic">'+ic+'</div><div class="kl">'+l+'</div><div class="kv"><b class="cnt" data-v="'+v+'" data-f="'+f+'">0</b></div><div class="ks">'+s+'</div></div>'}
+function tr(rs,f){var ms=mons(rs).slice(-2);if(ms.length<2)return "";var v=by(rs,ms,f);if(!v[0])return "";var d=Math.round((v[1]-v[0])/v[0]*100);return (d>=0?'<span class="up">▲ ':'<span class="dn">▼ ')+Math.abs(d)+'%</span> vs last month · '}
+function cnt(){document.querySelectorAll(".cnt").forEach(function(e){var v=+e.dataset.v,f=e.dataset.f,t0=performance.now();function fm(x){return f=="i"?inr(x):f=="p"?(Math.round(x*10)/10)+"%":nf(x)}
+ (function st(t){var k=Math.min((t-t0)/700,1);e.textContent=fm(v*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(st)})(t0)})}
+function ins(rs){var ms=mons(rs);if(rs.length<2||ms.length<2)return '<div class="ins"><span>Add more recovery records to generate insights.</span></div>';var t=T(rs),a=[],r=ms.slice(-2).map(function(m){var x=T(rs.filter(function(y){return y.rdate.slice(0,7)==m}));return pc(x.rec,x.del)}),d=Math.round((r[1]-r[0])*10)/10;
+ a.push("Recovery rate "+(d>=0?"improved":"dropped")+" by "+Math.abs(d)+" points in "+ml(ms[ms.length-1])+".");a.push(pc(t.ok,t.rec)+"% of recovered cartons were reusable.");
+ if(t.re)a.push("Reused cartons have averaged "+(Math.round(t.cyc/t.re*10)/10)+" reuse cycles.");a.push("Estimated packaging savings: "+inr(t.gross)+".");
+ return '<div class="ins">'+a.map(function(x){return '<span>'+x+'</span>'}).join("")+'</div>'}
+function empty(){return '<div class="hero" style="flex-direction:column;text-align:center;padding:36px 20px">'+logo(110)+'<h1>GREEN EARTH</h1><p>Start your circular packaging journey.</p><div class="flow" style="color:#14532d"><span>Deliver</span><span>Recover</span><span>Inspect</span><span>Reuse</span><span>Save</span></div><div class="bar2" style="justify-content:center"><button class="s" id="ac">Add your first company →</button><button class="s" id="ld">Load DEMO data</button></div></div>'}
+function kpiAll(rs,bills){var t=T(rs),rv=bills.reduce(function(s,b){return s+b.amt},0),pn=bills.filter(function(b){return!b.paid}).reduce(function(s,b){return s+b.amt},0);
+ return '<div class="grid">'+kp("📦","Cartons recovered",t.rec,"n",tr(rs,function(r){return r.rec})+"of "+nf(t.del)+" delivered")+kp("✅","Reusable cartons",t.ok,"n","Passed inspection")+kp("⚠️","Damaged cartons",t.dm,"n","Not fit for reuse")+kp("♻️","Cartons reused",t.re,"n","Sent out again")+kp("🎯","Recovery rate",pc(t.rec,t.del),"p","Recovered ÷ delivered")+kp("🧪","Reusable rate",pc(t.ok,t.rec),"p","Reusable ÷ recovered")+kp("🌱","Gross packaging savings",t.gross,"i",tr(rs,gross)+"Estimated")+kp("💚","Net savings",t.net,"i","After handling &amp; incentives")+kp("💰","Revenue",rv,"i","Billed to companies")+kp("⏳","Pending payments",pn,"i","Not yet paid")+'</div>'}
+function chRecTrend(p,rs){var ms=mons(rs);mk(p,"line",ms.map(ml),[L("Recovered cartons",by(rs,ms,function(r){return r.rec}),G)])}
+function chSplit(p,rs){var t=T(rs);dn(p,["Reusable","Damaged"],[t.ok,t.dm],[G,RD])}
+function chDist(p,rs){mk(p,"bar",["1st","2nd","3rd","4th","5th"],[B("Cartons reused",dist(rs),G)])}
+function chSave(p,rs,cu){var ms=mons(rs),v=by(rs,ms,gross);mk(p,"line",ms.map(ml),[L("Estimated savings (₹)",cu?cum(v):v,AM)])}
+function chRate(p,rs){var ms=mons(rs),a=by(rs,ms,function(r){return r.rec}),b=by(rs,ms,function(r){return r.del});mk(p,"line",ms.map(ml),[L("Recovery rate %",a.map(function(x,i){return pc(x,b[i])}),BL)])}
+function chCo(p,rs,f,l){mk(p,"bar",S.cos.map(function(c){return c.name.replace(" (DEMO)","")}),[B(l,S.cos.map(function(c){return f(rs.filter(function(r){return r.co==c.id}))}),G)])}
+/* pages */
+function dash(){var rs=S.recs;if(!S.cos.length)return empty();
+ return '<div class="hero">'+logo(72)+'<div><h1>Green Earth</h1><p>Recover. Reuse. Reduce.</p></div></div>'+ins(rs)+kpiAll(rs,S.bills)+'<div class="g2">'+cc("d1","Carton recovery trend")+cc("d2","Reusable vs damaged")+cc("d3","Company-wise recovery")+cc("d4","Savings growth (cumulative, ₹)")+cc("d5","Reuse cycle distribution")+'</div>'}
+function dashCh(){var rs=S.recs;chRecTrend("d1",rs);chSplit("d2",rs);chCo("d3",rs,function(x){return T(x).rec},"Recovered");chSave("d4",rs,1);chDist("d5",rs)}
+function mini(rs,bills){var t=T(rs);return '<div class="mini"><div>Recovery<b>'+pc(t.rec,t.del)+'%</b></div><div>Reusable<b>'+pc(t.ok,t.rec)+'%</b></div><div>Savings<b>'+inr(t.gross)+'</b></div><div>Revenue<b>'+inr(bills.reduce(function(s,b){return s+b.amt},0))+'</b></div></div>'}
+var CF=[["name","Company name"],["contact","Contact person"],["phone","Phone"],["email","Email"],["loc","Location"],["type","Company type","sel",CY],["vol","Monthly carton volume","number"],["cost","New carton cost (₹)","number"],["notes","Notes"]];
+function cosV(){if(sel){var c=co(sel),rs=S.recs.filter(function(r){return r.co==sel}),bl=S.bills.filter(function(b){return b.co==sel});
+  return '<div class="bar2"><button class="s" id="bk">← All companies</button><button class="s" data-e="'+c.id+'">Edit</button></div><div class="hero"><div><h1>'+esc(c.name)+'</h1><p>'+esc(c.loc)+' · '+esc(c.type)+' · Carton cost '+inr(c.cost)+' · '+nf(c.vol)+' cartons / month</p></div></div>'+ins(rs)+kpiAll(rs,bl)+'<div class="g2">'+cc("c1","Monthly carton recovery")+cc("c2","Reusable vs damaged")+cc("c3","Savings generated (₹ per month)")+cc("c4","Reuse cycles")+cc("c5","Recovery rate trend")+'</div>'}
+ var l=S.cos.filter(function(c){return(c.name+c.contact+c.loc).toLowerCase().indexOf(q.toLowerCase())>-1});
+ return '<h1>Companies</h1><div class="bar2"><input id="q" placeholder="Search company, contact, location" value="'+esc(q)+'"><button class="p" id="add">+ Add company</button></div>'+(l.length?'<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">'+l.map(function(c){var rs=S.recs.filter(function(r){return r.co==c.id});return '<div class="c co" data-v="'+c.id+'"><b>'+esc(c.name)+'</b><div class="note">'+esc(c.loc)+' · '+nf(c.vol)+' cartons/month · carton '+inr(c.cost)+'</div>'+mini(rs,S.bills.filter(function(b){return b.co==c.id}))+'<div class="bar2" style="margin:10px 0 0"><button class="s" data-e="'+c.id+'">Edit</button><button class="s x" data-d="'+c.id+'">Delete</button></div></div>'}).join("")+'</div>':empty())}
+function cosCh(){if(!sel)return;var rs=S.recs.filter(function(r){return r.co==sel}),ms=mons(rs);mk("c1","bar",ms.map(ml),[B("Recovered",by(rs,ms,function(r){return r.rec}),G)]);chSplit("c2",rs);chSave("c3",rs,0);chDist("c4",rs);chRate("c5",rs)}
+function RF(){return[["id","Carton / batch ID"],["co","Company","sel",S.cos.map(function(c){return{v:c.id,l:c.name}})],["ref","Customer / order reference"],["type","Carton type","sel",CT],["size","Size L×W×H"],["ply","Ply","number"],["cost","Carton cost (₹)","number"],["ddate","Delivery date","date"],["rdate","Recovery date","date"],["route","Delivery person / route"],["del","Delivered qty","number"],["rec","Recovered qty","number"],["ok","Reusable qty","number"],["dm","Damaged qty","number"],["reused","Reused qty","number"],["cyc","Reuse cycles reached (1-5)","number"],["max","Maximum planned uses","number"],["inc","Handling + incentive (₹ per recovered carton)","number"],["status","Current status","sel",CS]]}
+function recV(){var rs=S.recs;if(!rs.length)return empty();var t=T(rs),av=t.re?Math.round(t.cyc/t.re*10)/10:0,l=rs.filter(function(r){return(r.id+r.ref+co(r.co).name+r.route+r.type).toLowerCase().indexOf(q.toLowerCase())>-1});
+ return '<h1>Cartons &amp; recovery</h1>'+ins(rs)+'<div class="grid">'+kp("📦","Total cartons recovered",t.rec,"n","of "+nf(t.del)+" delivered")+kp("✅","Reusable",t.ok,"n",pc(t.ok,t.rec)+"% of recovered")+kp("⚠️","Damaged",t.dm,"n","")+kp("🔁","Average reuse count",av,"n","cycles per reused carton")+kp("🌱","Total savings",t.gross,"i","Estimated gross")+'</div><div class="g2">'+cc("r1","Carton condition")+cc("r2","Delivery vs recovery")+cc("r3","Recovery rate trend")+cc("r4","Reuse count")+cc("r5","Weekly / monthly recovery trend")+'</div><div class="c"><div class="bar2"><input id="q" placeholder="Search ID, order, company, route" value="'+esc(q)+'"><button class="p" id="add">+ Add record</button></div><div class="tw"><table><tr><th>ID</th><th>Company</th><th>Type</th><th>Order</th><th>Recovered on</th><th>Delivered</th><th>Recovered</th><th>Reusable</th><th>Damaged</th><th>Reused</th><th>Cycles</th><th>Cost</th><th>Status</th><th>Est. saving</th><th></th></tr>'+l.map(function(r){return '<tr><td>'+esc(r.id)+'</td><td>'+esc(co(r.co).name)+'</td><td>'+esc(r.type)+'</td><td>'+esc(r.ref)+'</td><td>'+esc(r.rdate)+'</td><td>'+r.del+'</td><td>'+r.rec+'</td><td>'+r.ok+'</td><td class="dn">'+r.dm+'</td><td>'+r.reused+'</td><td>'+r.cyc+'</td><td>'+inr(r.cost)+'</td><td><span class="tag">'+esc(r.status)+'</span></td><td>'+inr(gross(r))+'</td><td><button class="s" data-e="'+esc(r.id)+'">Edit</button> <button class="s x" data-d="'+esc(r.id)+'">Delete</button></td></tr>'}).join("")+'</table></div><p class="note">Estimated saving = reusable × carton cost × (maximum uses − 1).</p></div>'}
+function recCh(){var rs=S.recs,ms=mons(rs);chSplit("r1",rs);mk("r2","bar",ms.map(ml),[B("Delivered",by(rs,ms,function(r){return r.del}),BL),B("Recovered",by(rs,ms,function(r){return r.rec}),G)]);chRate("r3",rs);chDist("r4",rs);
+ var wk={};rs.forEach(function(r){var k=r.rdate.slice(0,7)+" W"+Math.ceil(+r.rdate.slice(8,10)/7);wk[k]=(wk[k]||0)+r.rec});var ks=Object.keys(wk).sort();mk("r5","line",ks,[L("Recovered",ks.map(function(k){return wk[k]}),PU)])}
+function reuseV(){var rs=S.recs;if(!rs.length)return empty();var t=T(rs),mx=rs.reduce(function(m,r){return Math.max(m,r.cyc)},0),av=t.re?Math.round(t.cyc/t.re*10)/10:0,nodes=["New carton","Delivered","Customer","Recovered","Inspected","Reused"],s="";
+ nodes.forEach(function(n,i){var a=i/6*2*Math.PI-Math.PI/2,x=160+105*Math.cos(a),y=140+105*Math.sin(a);s+='<circle cx="'+x+'" cy="'+y+'" r="26" fill="#16a34a"/><text x="'+x+'" y="'+(y+4)+'" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">'+n.split(" ")[0]+'</text>'});
+ return '<h1>Circular reuse</h1><div class="c" style="text-align:center"><svg viewBox="0 0 320 280" style="max-width:380px;width:100%"><circle class="spin" cx="160" cy="140" r="105" fill="none" stroke="#86efac" stroke-width="3" stroke-dasharray="8 8"/>'+s+'<g transform="translate(130 110)">'+logo(60)+'</g></svg><div class="note">New carton → Delivered → Customer → Recovered → Inspected → Reused → Delivered again</div></div><div class="grid" style="margin-top:14px">'+kp("♻️","Total reuse cycles",t.cyc,"n","Cartons reused × cycles")+kp("🔁","Average cycles per carton",av,"n","Reused cartons only")+kp("🏆","Maximum reuse cycle",mx,"n","Highest reached")+kp("🌱","Savings generated by reuse",t.ach,"i","Reused × cycles × carton cost")+'</div>'+ins(rs)+'<div class="g2">'+cc("u1","Cartons that reached each cycle")+cc("u2","Savings by company (₹)")+'</div><div class="quote">Every additional reuse cycle reduces the need for a new carton.</div>'}
+function reuseCh(){chDist("u1",S.recs);chCo("u2",S.recs,function(x){return T(x).ach},"Savings generated")}
+function calcV(){var f=[["cc","New carton cost (₹)",5],["cq","Number of cartons",1000],["cu","Total uses",3],["ch","Recovery / handling (₹ per carton)",1],["ci","Customer incentive (₹ per carton)",0],["cs","Delivery staff incentive (₹ per carton)",0],["co2","Other cost (₹ total)",0]];
+ return '<h1>Savings calculator</h1><div class="c"><div class="f">'+f.map(function(x){return '<div><label>'+x[1]+'</label><input id="'+x[0]+'" type="number" step="any" min="0" value="'+x[2]+'"></div>'}).join("")+'</div></div><div class="hero" style="margin-top:14px"><div><p>Estimated gross saving</p><h1 id="big" style="font-size:38px"></h1></div></div><div class="grid" id="cr"></div><div class="g2">'+cc("k1","Gross saving vs additional cost")+cc("k2","New carton purchase vs reuse model cost")+cc("k3","Estimated savings by number of uses")+'</div><p class="note">All results are estimates. Gross = quantity × carton cost × (uses − 1). Net = gross − additional costs. ROI = net ÷ additional costs.</p>'}
+function calcRun(){var g=function(i){return+$(i).value||0},q=g("cq"),c=g("cc"),u=g("cu"),G1=q*c*Math.max(u-1,0),A=q*(g("ch")+g("ci")+g("cs"))+g("co2"),N=G1-A;
+ $("big").textContent=inr(G1);$("cr").innerHTML=[["Saving per carton (net)",inr(q?N/q:0)],["Gross saving",inr(G1)],["Total additional cost",inr(A)],["Net saving",inr(N)],["Estimated ROI",A?pc(N,A)+"%":"n/a"]].map(function(x){return '<div class="kp"><div class="kl">'+x[0]+'</div><div class="kv">'+x[1]+'</div></div>'}).join("");
+ dn("k1",["Gross saving","Additional cost"],[Math.max(G1,0),A],[G,AM]);mk("k2","bar",["Buying new every time","Reuse model"],[B("Cost (₹)",[q*c*u,q*c+A],G)]);
+ var n=Math.min(Math.max(u,1),12),lb=[],v=[];for(var i=1;i<=n;i++){lb.push(i+(i==1?" use":" uses"));v.push(q*c*(i-1))}mk("k3","line",lb,[L("Gross saving (₹)",v,G)])}
+function revV(){var bl=S.bills,t=bl.reduce(function(s,b){return s+b.amt},0),p=bl.filter(function(b){return!b.paid}).reduce(function(s,b){return s+b.amt},0),ms={};bl.forEach(function(b){ms[b.date.slice(0,7)]=1});var mm=Object.keys(ms).sort(),lm=mm.length?bl.filter(function(b){return b.date.slice(0,7)==mm[mm.length-1]}).reduce(function(s,b){return s+b.amt},0):0;
+ return '<h1>Revenue</h1><div class="grid">'+kp("💰","Total revenue",t,"i","All invoices")+kp("✅","Paid",t-p,"i",pc(t-p,t)+"% collected")+kp("⏳","Pending",p,"i","")+kp("📅","Latest month",lm,"i",mm.length?ml(mm[mm.length-1]):"")+'</div><div class="g2">'+cc("v1","Monthly revenue")+cc("v2","Revenue per company")+cc("v3","Paid vs pending")+'</div><div class="c"><div class="bar2"><button class="p" id="add">+ New invoice</button></div><div class="tw"><table><tr><th>Invoice</th><th>Company</th><th>Date</th><th>Model</th><th>Amount</th><th>Status</th><th></th></tr>'+bl.map(function(b){return '<tr><td>'+esc(b.id)+'</td><td>'+esc(co(b.co).name)+'</td><td>'+esc(b.date)+'</td><td>'+esc(b.model)+'</td><td>'+inr(b.amt)+'</td><td><span class="tag">'+(b.paid?"Paid":"Pending")+'</span></td><td><button class="s" data-p="'+esc(b.id)+'">'+(b.paid?"Mark pending":"Mark paid")+'</button> <button class="s x" data-d="'+esc(b.id)+'">Delete</button></td></tr>'}).join("")+'</table></div></div>'}
+function revCh(){var bl=S.bills,ms={};bl.forEach(function(b){ms[b.date.slice(0,7)]=1});var mm=Object.keys(ms).sort();mk("v1","line",mm.map(ml),[L("Revenue (₹)",mm.map(function(m){return bl.filter(function(b){return b.date.slice(0,7)==m}).reduce(function(s,b){return s+b.amt},0)}),G)]);
+ mk("v2","bar",S.cos.map(function(c){return c.name.replace(" (DEMO)","")}),[B("Revenue (₹)",S.cos.map(function(c){return bl.filter(function(b){return b.co==c.id}).reduce(function(s,b){return s+b.amt},0)}),G)]);
+ var p=bl.filter(function(b){return b.paid}).reduce(function(s,b){return s+b.amt},0),a=bl.reduce(function(s,b){return s+b.amt},0);dn("v3",["Paid","Pending"],[p,a-p],[G,AM])}
+function frs(){return S.recs.filter(function(r){return(!F.from||r.rdate>=F.from)&&(!F.to||r.rdate<=F.to)&&(!F.co||r.co==F.co)&&(!F.type||r.type==F.type)&&(!F.st||r.status==F.st)})}
+function sl(id,k,o,all){return '<select id="'+id+'"><option value="">'+all+'</option>'+o.map(function(x){var v=x.v!=null?x.v:x,l=x.l||x;return '<option value="'+esc(v)+'"'+(F[k]==v?" selected":"")+'>'+esc(l)+'</option>'}).join("")+'</select>'}
+function repV(){var rs=frs(),bl=S.bills.filter(function(b){return(!F.from||b.date>=F.from)&&(!F.to||b.date<=F.to)&&(!F.co||b.co==F.co)});
+ return '<h1>Reports</h1><div class="bar2 noprint"><input type="date" id="ff" value="'+F.from+'"><input type="date" id="ft" value="'+F.to+'">'+sl("fc","co",S.cos.map(function(c){return{v:c.id,l:c.name}}),"All companies")+sl("fy","type",CT,"All carton types")+sl("fs","st",CS,"All statuses")+'<button class="p" id="ex">Export CSV</button><button class="s" id="pr">Print / PDF</button></div>'+(rs.length?ins(rs)+kpiAll(rs,bl)+'<div class="g2">'+cc("p1","Recovery performance")+cc("p2","Reuse performance")+cc("p3","Packaging savings (₹ per month)")+cc("p4","Revenue (₹ per month)")+cc("p5","Company performance: recovery rate %")+'</div><div class="c tw"><table><tr><th>Company</th><th>Delivered</th><th>Recovered</th><th>Recovery %</th><th>Reusable</th><th>Reusable %</th><th>Damaged</th><th>Reused</th><th>Gross saving</th></tr>'+repRows(rs).map(function(r){return '<tr>'+r.map(function(x,i){return '<td>'+(i==8?inr(x):esc(x))+'</td>'}).join("")+'</tr>'}).join("")+'</table></div>':'<div class="c">No records match these filters. Add more recovery records to generate reports.</div>')}
+function repRows(rs){return S.cos.map(function(c){var t=T(rs.filter(function(r){return r.co==c.id}));return[c.name,t.del,t.rec,pc(t.rec,t.del),t.ok,pc(t.ok,t.rec),t.dm,t.re,Math.round(t.gross)]}).filter(function(r){return r[1]||r[2]})}
+function repCh(){var rs=frs();if(!rs.length)return;var ms=mons(rs);mk("p1","bar",ms.map(ml),[B("Recovered",by(rs,ms,function(r){return r.rec}),G),B("Reusable",by(rs,ms,function(r){return r.ok}),BL)]);chDist("p2",rs);chSave("p3",rs,0);
+ var bl=S.bills.filter(function(b){return(!F.from||b.date>=F.from)&&(!F.to||b.date<=F.to)&&(!F.co||b.co==F.co)}),bm={};bl.forEach(function(b){bm[b.date.slice(0,7)]=1});var bk=Object.keys(bm).sort();mk("p4","line",bk.map(ml),[L("Revenue",bk.map(function(m){return bl.filter(function(b){return b.date.slice(0,7)==m}).reduce(function(s,b){return s+b.amt},0)}),PU)]);
+ var rr=repRows(rs);mk("p5","bar",rr.map(function(r){return r[0].replace(" (DEMO)","")}),[B("Recovery rate %",rr.map(function(r){return r[3]}),G)])}
+function execV(){var rs=S.recs;if(!rs.length)return empty();var t=T(rs);
+ return '<div class="hero" style="flex-direction:column;text-align:center;padding:28px">'+logo(96)+'<h1 style="font-size:32px">GREEN EARTH</h1><p style="font-size:17px">Circular Packaging Performance</p></div><div class="grid">'+kp("📦","Cartons recovered",t.rec,"n","")+kp("♻️","Cartons reused",t.re,"n","")+kp("🌱","Packaging savings",t.gross,"i","Estimated")+kp("🎯","Recovery rate",pc(t.rec,t.del),"p","")+kp("🧪","Reusable rate",pc(t.ok,t.rec),"p","")+'</div>'+ins(rs)+'<div class="g2">'+cc("e1","Carton recovery trend")+cc("e2","Savings growth (₹)")+cc("e3","Reusable vs damaged")+cc("e4","Reuse cycle distribution")+'</div><div class="quote">Recover. Reuse. Reduce.</div><div class="bar2 noprint" style="justify-content:center"><button class="s" id="pr">Print / Save as PDF</button></div>'}
+function execCh(){var rs=S.recs;chRecTrend("e1",rs);chSave("e2",rs,1);chSplit("e3",rs);chDist("e4",rs)}
+function dataV(){return '<h1>Backup &amp; restore</h1><div class="c"><p>Your data is saved in this browser. Back it up regularly.</p><div class="bar2"><button class="p" id="bk">Backup (JSON)</button><button class="s" id="rs">Restore</button><button class="s" id="ec">Export records (CSV)</button><button class="s x" id="rd">Reset to DEMO data</button><button class="s x" id="cl">Clear all data</button></div></div>'}
+/* dialogs & helpers */
+function form(title,fs,v,cb){var h='<h2>'+title+'</h2><form id="ff2"><div class="f">'+fs.map(function(f){var val=v[f[0]]==null?"":v[f[0]],i;
+ if(f[2]=="sel")i='<select name="'+f[0]+'">'+f[3].map(function(o){var ov=o.v!=null?o.v:o,ol=o.l||o;return '<option value="'+esc(ov)+'"'+(ov==val?" selected":"")+'>'+esc(ol)+'</option>'}).join("")+'</select>';else i='<input name="'+f[0]+'" type="'+(f[2]||"text")+'" value="'+esc(val)+'"'+(f[2]=="number"?' step="any" min="0"':'')+'>';return '<div><label>'+f[1]+'</label>'+i+'</div>'}).join("")+'</div><div class="bar2" style="margin-top:14px"><button class="p">Save</button><button class="s" type="button" id="cx">Cancel</button></div></form>';
+ $("dlg").innerHTML=h;$("dlg").showModal();$("cx").onclick=function(){$("dlg").close()};$("ff2").onsubmit=function(e){e.preventDefault();var o={};fs.forEach(function(f){var x=$("ff2").elements[f[0]].value;o[f[0]]=f[2]=="number"?(+x||0):x});$("dlg").close();cb(o)}}
+function csv(rows){return rows.map(function(r){return r.map(function(x){return '"'+String(x).replace(/"/g,'""')+'"'}).join(",")}).join("\n")}
+function out(name,txt,type){$("dlg").innerHTML='<h2>'+esc(name)+'</h2><textarea id="ta" rows="8"></textarea><div class="bar2" style="margin-top:12px"><button class="p" id="dd">Download file</button><button class="s" id="cp">Copy</button><button class="s" id="cx">Close</button></div>';$("ta").value=txt;$("dlg").showModal();$("cx").onclick=function(){$("dlg").close()};
+ $("cp").onclick=function(){$("ta").select();try{document.execCommand("copy")}catch(e){}};$("dd").onclick=function(){var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type:type}));a.download=name;a.click()}}
+function recsCsv(rs){return csv([["ID","Company","Order","Type","Recovery date","Route","Cost","Delivered","Recovered","Reusable","Damaged","Reused","Cycles","Max uses","Status","Est. saving"]].concat(rs.map(function(r){return[r.id,co(r.co).name,r.ref,r.type,r.rdate,r.route,r.cost,r.del,r.rec,r.ok,r.dm,r.reused,r.cyc,r.max,r.status,gross(r)]})))}
+/* render */
+function go(){Object.keys(CH).forEach(function(k){CH[k].destroy()});CH={};
+ $("sb").innerHTML='<div class="br">'+logo(46)+'GREEN EARTH</div><small>Recover. Reuse. Reduce.</small>'+PG.map(function(p){return '<button data-t="'+p[0]+'"'+(p[0]==tab?' class="on"':"")+'>'+p[2]+'  '+p[1]+'</button>'}).join("")+'<div style="margin-top:auto;padding:12px 8px;font-size:12px;opacity:.9">'+ACC2()+'</div>';
+ $("bn").innerHTML=PG.map(function(p){return '<button data-t="'+p[0]+'"'+(p[0]==tab?' class="on"':"")+'><span>'+p[2]+'</span>'+p[1]+'</button>'}).join("");
+ $("top").innerHTML=logo(36)+'GREEN EARTH'+ACC();
+ var v={dash:dash,cos:cosV,rec:recV,reuse:reuseV,calc:calcV,rev:revV,rep:repV,exec:execV,data:dataV}[tab]();$("m").innerHTML=v;
+ document.querySelectorAll("[data-t]").forEach(function(b){b.onclick=function(){tab=b.dataset.t;sel=null;q="";go();window.scrollTo(0,0)}});
+ wire();cnt();var ch={dash:dashCh,cos:cosCh,rec:recCh,reuse:reuseCh,rev:revCh,rep:repCh,exec:execCh}[tab];if(ch&&S.recs.length)ch();if(tab=="calc")calcRun()}
+function wire(){var m=$("m"),on=function(i,f){if($(i))$(i).onclick=f};
+ on("ac",function(){tab="cos";go();$("add").click()});on("ld",function(){S=demo();sv();go()});on("pr",function(){window.print()});
+ if($("q"))$("q").oninput=function(){q=this.value;var p=this.selectionStart;go();$("q").focus();$("q").setSelectionRange(p,p)};
+ if(tab=="calc")m.querySelectorAll("input").forEach(function(i){i.oninput=calcRun});
+ var del=function(arr){m.querySelectorAll("[data-d]").forEach(function(b){b.onclick=function(e){e.stopPropagation();if(confirm("Delete this entry?")){S[arr]=S[arr].filter(function(x){return x.id!=b.dataset.d});if(arr=="cos")S.recs=S.recs.filter(function(r){return S.cos.some(function(c){return c.id==r.co})});sv();go()}}})};
+ if(tab=="cos"){on("add",function(){form("Add company",CF,{type:"Other",cost:5},function(o){o.id=nid(S.cos);S.cos.push(o);sv();go()})});del("cos");on("bk",function(){sel=null;go()});
+  m.querySelectorAll("[data-e]").forEach(function(b){b.onclick=function(e){e.stopPropagation();var c=co(b.dataset.e);form("Edit company",CF,c,function(o){Object.assign(c,o);sv();go()})}});
+  m.querySelectorAll("[data-v]").forEach(function(b){b.onclick=function(){sel=+b.dataset.v;go();window.scrollTo(0,0)}})}
+ if(tab=="rec"){on("add",function(){if(!S.cos.length)return alert("Add a company first.");var c=S.cos[0];form("Add record",RF(),{id:"GE-"+("00"+nid(S.recs)).slice(-3),co:c.id,cost:c.cost,type:CT[0],status:"Delivered",max:3,cyc:1,inc:1,ply:3},function(o){o.co=+o.co;S.recs.push(o);sv();go()})});del("recs");
+  m.querySelectorAll("[data-e]").forEach(function(b){b.onclick=function(){var r=S.recs.find(function(x){return x.id==b.dataset.e});form("Edit record",RF(),r,function(o){o.co=+o.co;Object.assign(r,o);sv();go()})}})}
+ if(tab=="rev"){del("bills");m.querySelectorAll("[data-p]").forEach(function(b){b.onclick=function(){var x=S.bills.find(function(y){return y.id==b.dataset.p});x.paid=!x.paid;sv();go()}});
+  on("add",function(){if(!S.cos.length)return alert("Add a company first.");form("New invoice",[["co","Company","sel",S.cos.map(function(c){return{v:c.id,l:c.name}})],["model","Revenue model","sel",["Per reusable carton","Monthly service fee","Savings share %"]],["val","Rate ₹ per carton / fee ₹ / share %","number"],["date","Billing date","date"]],{val:1,date:new Date().toISOString().slice(0,10)},function(o){
+   var x=T(S.recs.filter(function(r){return r.co==o.co})),a=o.model=="Monthly service fee"?o.val:o.model=="Savings share %"?x.gross*o.val/100:x.ok*o.val;S.bills.push({id:"INV-"+nid(S.bills),co:+o.co,date:o.date,model:o.model,amt:Math.round(a*100)/100,paid:false});sv();go()})})}
+ if(tab=="rep"){[["ff","from"],["ft","to"],["fc","co"],["fy","type"],["fs","st"]].forEach(function(p){$(p[0]).onchange=function(){F[p[1]]=this.value;go()}});on("ex",function(){out("green-earth-report.csv",recsCsv(frs()),"text/csv")})}
+ if(tab=="data"){on("bk",function(){out("green-earth-backup.json",JSON.stringify(S),"application/json")});on("ec",function(){out("green-earth-records.csv",recsCsv(S.recs),"text/csv")});
+  on("rs",function(){$("dlg").innerHTML='<h2>Restore</h2><p class="note">Paste backup text, or choose the backup file.</p><textarea id="ta" rows="6"></textarea><input type="file" id="fl" accept=".json"><div class="bar2" style="margin-top:12px"><button class="p" id="ok">Restore</button><button class="s" id="cx">Cancel</button></div>';$("dlg").showModal();$("cx").onclick=function(){$("dlg").close()};
+   $("fl").onchange=function(){var r=new FileReader();r.onload=function(){$("ta").value=r.result};r.readAsText(this.files[0])};
+   $("ok").onclick=function(){try{var d=JSON.parse($("ta").value);if(!d.cos||!d.recs)throw 0;S=d;if(!S.bills)S.bills=[];sv();$("dlg").close();go()}catch(e){alert("This is not a valid Green Earth backup.")}}});
+  on("rd",function(){if(confirm("Replace all data with DEMO data?")){S=demo();sv();go()}});on("cl",function(){if(confirm("Delete ALL data? Download a backup first.")){S={cos:[],recs:[],bills:[]};sv();tab="dash";go()}})}}
+
+var USERS=[{n:"Platform Owner",r:"super",e:"admin@greenearth.app",m:"9000000000"},{n:"Anita Rao",r:"admin",e:"anita@globalfootwear.com",m:"9811100001",c:1},{n:"Vikram Singh",r:"ops",e:"vikram@globalfootwear.com",m:"9811100002",c:1},{n:"Ravi (Delivery)",r:"staff",e:"ravi@globalfootwear.com",m:"9811100003",c:1},{n:"Meera Nair",r:"admin",e:"meera@abcelectronics.com",m:"9822200001",c:2},{n:"Sana Khan",r:"admin",e:"sana@xyzecom.com",m:"9833300001",c:3}];
+var RN={super:"Super Admin",admin:"Company Admin",ops:"Operations Manager",staff:"Delivery Staff"},ALLOW={ops:["dash","rec","reuse","calc","rep","exec"],staff:["dash","rec","reuse","calc"]};
+var U=null,P=null,OTP,EXP=0,TR=0,TM=0,LE="";try{U=JSON.parse(localStorage.ge_sess)}catch(e){}
+function cname(){return U.c?co(U.c).name:"Platform"}
+function ACC(){return '<span style="margin-left:auto;display:flex;gap:10px;align-items:center;font-size:12px"><span>'+esc(cname())+' · '+RN[U.r]+'</span><span class="net">'+(navigator.onLine?"🟢 Online":"🟠 Offline")+'</span><button class="s lo">Log out</button></span>'}
+function ACC2(){return esc(U.n)+'<br>'+esc(cname())+'<br>'+RN[U.r]+'<br><span class="net">'+(navigator.onLine?"🟢 Online":"🟠 Offline")+'</span><br><button class="s lo" style="margin-top:8px">Log out</button>'}
+addEventListener("online",net);addEventListener("offline",net);function net(){document.querySelectorAll(".net").forEach(function(e){e.textContent=navigator.onLine?"🟢 Online":"🟠 Offline"})}
+document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".lo")){localStorage.removeItem("ge_sess");location.reload()}});
+function boot(){if(ALLOW[U.r])PG=PG.filter(function(p){return ALLOW[U.r].indexOf(p[0])>-1});
+K=U.c?"greenearth_co_"+U.c:"greenearth_v1";try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+if(!S||!S.cos){S=demo();if(U.c){var i=U.c;S={cos:S.cos.filter(function(c){return c.id==i}),recs:S.recs.filter(function(r){return r.co==i}),bills:S.bills.filter(function(b){return b.co==i})}}sv()}
+$("lg").style.display="none";go()}
+var IS="width:100%;padding:13px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;margin-bottom:10px;text-align:center";
+function lgv(){var h='<div style="max-width:380px;width:100%;margin:auto;background:var(--card);border-radius:24px;padding:28px 22px;text-align:center;box-shadow:var(--sh)">'+logo(84)+'<h1 style="margin:6px 0 0;font-size:24px">GREEN EARTH</h1><p style="color:var(--mute);margin:2px 0 18px">Recover. Reuse. Reduce.</p>';
+if(!P)h+='<input id="li" placeholder="Mobile number / Email" autocomplete="username" style="'+IS+'"><div style="color:var(--bad);font-size:13px;min-height:18px">'+LE+'</div><button class="p" id="so" style="width:100%">Send OTP</button><div style="background:#fff6e5;color:#8a5a00;border-radius:12px;padding:10px;font-size:12px;margin-top:14px;text-align:left"><b>DEMO OTP MODE</b> – not production login. Try: anita@globalfootwear.com, meera@abcelectronics.com, sana@xyzecom.com, admin@greenearth.app</div>';
+else h+='<input id="lo2" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit OTP" autocomplete="one-time-code" style="'+IS+';letter-spacing:6px"><div style="background:#fff6e5;color:#8a5a00;border-radius:12px;padding:10px;font-size:12.5px;margin-bottom:8px;text-align:left"><b>DEMO OTP MODE</b> – your code is <b>'+OTP+'</b>. In production it is sent by SMS/email through Supabase or Firebase Auth.</div><div style="color:var(--bad);font-size:13px;min-height:18px">'+LE+'</div><button class="p" id="vf" style="width:100%">Verify &amp; Login</button><p style="font-size:12px;color:var(--mute)" id="tm">Resend in '+TM+'s</p><button class="s" id="rs" style="width:100%;display:'+(TM>0?"none":"block")+'">Resend OTP</button>';
+$("lg").innerHTML=h+'</div>';
+if($("so"))$("so").onclick=sendOtp;if($("vf"))$("vf").onclick=verify;if($("rs"))$("rs").onclick=sendOtp}
+function sendOtp(){if(!P){var v=$("li").value.trim().toLowerCase();P=USERS.filter(function(u){return u.e==v||u.m==v})[0];if(!P){LE="No account found for that email or mobile number.";return lgv()}}
+OTP=String(100000+Math.floor(Math.random()*900000));EXP=Date.now()+300000;TR=0;TM=60;LE="";clearInterval(window.T);
+window.T=setInterval(function(){TM--;if(TM<=0)clearInterval(window.T);var t=$("tm"),r=$("rs");if(t)t.textContent=TM>0?"Resend in "+TM+"s":"";if(r)r.style.display=TM>0?"none":"block"},1000);lgv()}
+function verify(){var v=$("lo2").value.trim();if(Date.now()>EXP){LE="OTP expired. Request a new one.";return lgv()}
+if(TR>=5){LE="Too many attempts. Request a new OTP.";return lgv()}
+if(v!==OTP){TR++;LE="Invalid OTP. "+(5-TR)+" attempts left.";return lgv()}
+U=P;localStorage.ge_sess=JSON.stringify(U);boot()}
+if(U)boot();else lgv();
+</script><script>
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js').catch(()=>{}));
+(function(){var dp,st=matchMedia('(display-mode: standalone)').matches||navigator.standalone;if(st)return;
+addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;if(localStorage.ge_nn)return;
+var b=document.createElement('div');b.style.cssText='position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:99;background:#fff;color:#0f2418;border-radius:16px;padding:12px 14px;box-shadow:0 10px 30px #0004;display:flex;gap:8px;align-items:center;font:14px system-ui';
+b.innerHTML='<div style="flex:1"><b>Get the GREEN EARTH App</b><br><small>Install on your phone for faster access.</small></div><button id="gi" style="border:0;border-radius:12px;padding:11px 16px;background:#15803d;color:#fff;font-weight:700">Install App</button><button id="gn" style="border:0;background:none;color:#5d7366;padding:8px">Not now</button>';
+document.body.appendChild(b);b.querySelector('#gi').onclick=function(){dp.prompt();b.remove()};b.querySelector('#gn').onclick=function(){localStorage.ge_nn=1;b.remove()}});
+addEventListener('appinstalled',function(){document.querySelectorAll('body>div[style*="fixed"]').forEach(function(x){if(x.querySelector('#gi'))x.remove()})})})();
+</script></body></html>
